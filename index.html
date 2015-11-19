@@ -52,7 +52,7 @@
   <script>
     function poll() {
       $(".test-image").attr('src', './image.png?ts=' + new Date().getTime()); 
-      window.setTimeout(poll, 200);
+      window.setTimeout(poll, 500);
     }
     poll();
   </script>
