@@ -33,7 +33,7 @@
       <div class="aui-page-panel">
         <div class="aui-page-panel-inner">
           <section class="aui-page-panel-content">
-            <img class="test-image" src="./image.png" alt="image">
+            <h1 class="test-target">Awaiting deployment...<h1>
           </section>
         </div>
       </div>
@@ -51,8 +51,16 @@
   </div>
   <script>
     function poll() {
-      $(".test-image").attr('src', './image.png?ts=' + new Date().getTime()); 
-      window.setTimeout(poll, 500);
+      fetch('test.json?ts=' + new Date().getTime()).then(function(response) {
+        return response.json();
+      }).then(function(json) {
+        if (json.deployed) {
+          $(".test-target").css("color", "#14892c").text('Deployed!');
+        } else {
+          $(".test-target").css("color", "#707070").text('Awaiting deployment...');
+        }
+        window.setTimeout(poll, 300);
+      });
     }
     poll();
   </script>
